@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吴依琳 | UI/UX Designer</title>
+    <style>
+        /* 全局样式 - 手账基底 */
+        :root {
+            --quartz-pink: #F4D4D7;      /* 石英粉 */
+            --calm-blue: #A0B9D6;        /* 静谧蓝 */
+            --notebook-white: #f8f7f2;   /* 手账本米白 */
+            --tape-beige: #e8d9c5;       /* 胶带米色 */
+            --tag-blue: #8ab4f8;         /* 标签浅蓝 */
+            --text-brown: #6d5d4e;       /* 手写文字棕 */
+            --light-gray: #777777;
+            --dark-gray: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            background-color: var(--calm-blue);
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* 手账本容器 - 还原笔记本质感 */
+        .notebook {
+            width: 90%;
+            max-width: 1000px;
+            background-color: var(--notebook-white);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            position: relative;
+            background-image: 
+                linear-gradient(#e0e0e0 1px, transparent 1px);
+            background-size: 25px 25px; /* 横线笔记本纹理 */
+        }
+
+        /* 左侧装订线 */
+        .notebook::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 100%;
+            background-color: #f0eae2;
+            border-right: 2px dashed #d4c7b5;
+        }
+
+        /* 回形针装饰 */
+        .paperclip {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            width: 32px;
+            height: 65px;
+            border: 3px solid #999;
+            border-radius: 16px;
+            transform: rotate(15deg);
+        }
+
+        /* 头部标题 - 手写风格 */
+        header {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-family: "Ma Shan Zheng", cursive;
+            color: var(--text-brown);
+            display: inline-block;
+            transform: rotate(-2deg);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-brown);
+            font-style: italic;
+            margin-left: 5px;
+        }
+
+        .star-doodle {
+            position: absolute;
+            top: 10px;
+            right: 80px;
+            color: var(--text-brown);
+            font-size: 1.6rem;
+        }
+
+        /* 板块标题 - 撕纸标签 */
+        .section-tag {
+            display: inline-block;
+            background-color: var(--tag-blue);
+            color: white;
+            padding: 8px 22px;
+            border-radius: 4px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+            transform: rotate(-1deg);
+            /* 撕纸边缘效果 */
+            clip-path: polygon(
+                0 0, 100% 0, 95% 100%, 5% 100%
+            );
+        }
+
+        /* 拼贴卡片样式 */
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(160, 185, 214, 0.15);
+            position: relative;
+            transform: rotate(1deg);
+            transition: all 0.3s ease;
+        }
+
+        .card:nth-child(even) {
+            transform: rotate(-1deg);
+        }
+
+        .card:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        /* 胶带贴纸效果 */
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            width: 60px;
+            height: 16px;
+            background-color: var(--tape-beige);
+            opacity: 0.7;
+            transform: rotate(-10deg);
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 60px;
+            height: 16px;
+            background-color: var(--tape-beige);
+            opacity: 0.7;
+            transform: rotate(10deg);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2::before {
+            content: "";
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: var(--quartz-pink);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* 技能标签 - 拼贴感 */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .skill-tag {
+            background-color: var(--quartz-pink);
+            color: var(--dark-gray);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #e6b8bc;
+            transform: rotate(0 deg);
+            transition: all 0.2s ease;
+        }
+
+        .skill-tag:hover {
+            transform: rotate(0);
+            background-color: #f0b7bd;
+        }
+
+        /* 经历列表 */
+        .experience-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed var(--calm-blue);
+        }
+
+        .experience-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .experience-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        .experience-time {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .experience-desc {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            margin-left: 15px;
+            list-style-type: "▹ ";
+        }
+
+        .experience-desc li {
+            margin-bottom: 8px;
+        }
+
+        /* 荣誉卡片 - 拼贴倾斜 */
+        .awards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .award-item {
+            background-color: var(--calm-blue);
+            padding: 15px;
+            border-radius: 6px;
+            transform: rotate(0 deg);
+            border: 1px solid white;
+            color: white;
+        }
+
+        .award-item:nth-child(even) {
+            transform: rotate(0 deg);
+            background-color: var(--quartz-pink);
+            color: var(--dark-gray);
+        }
+
+        /* 联系方式 */
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .contact-item::before {
+            content: "📮";
+            font-size: 1.2rem;
+        }
+
+        .contact-item:nth-child(2)::before {
+            content: "📞";
+        }
+
+        .contact-item:nth-child(3)::before {
+            content: "📍";
+        }
+
+        /* 手绘涂鸦装饰 */
+        .doodle {
+            position: absolute;
+            color: var(--text-brown);
+            opacity: 0.6;
+            font-size: 1.5rem;
+        }
+        .doodle-1 { top: 220px; right: 100px; }
+        .doodle-2 { top: 380px; right: 140px; }
+        .doodle-3 { top: 580px; left: 48%; }
+        .doodle-4 { bottom: 150px; right: 100px; }
+        .doodle-5 { bottom: 100px; right: 160px; }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .notebook {
+                padding: 25px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .card {
+                transform: rotate(0);
+            }
+            .awards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="notebook">
+        <!-- 回形针装饰 -->
+        <div class="paperclip"></div>
+
+        <!-- 头部标题 -->
+        <header>
+            <h1>吴依琳 | Yilin Wu ✎</h1>
+            <p class="subtitle">UI/UX Designer · Product Experience Designer</p>
+            <div class="star-doodle">✧ ✧ ✦</div>
+        </header>
+
+        <!-- 手绘涂鸦装饰 -->
+        <div class="doodle doodle-1">✎</div>
+        <div class="doodle doodle-2">✈</div>
+        <div class="doodle doodle-3">💡</div>
+        <div class="doodle doodle-4">✧</div>
+        <div class="doodle doodle-5">✿✿</div>
+
+        <!-- 关于我 -->
+        <div class="section-tag">关于我</div>
+        <div class="card">
+            <p>应用心理学背景的UI/UX设计师，擅长以<strong>用户行为与认知视角</strong>挖掘体验痛点，用数据驱动视觉与交互设计，让产品更懂人、更易用。</p>
+        </div>
+
+        <!-- 核心技能 -->
+        <div class="section-tag">核心技能</div>
+        <div class="card">
+            <div class="skills">
+                <span class="skill-tag">设计工具：Photoshop (基础)、Canva、Sketchbook、秀米编辑器</span>
+                <span class="skill-tag">数据分析：Graphpad Prism、Excel (熟练数据可视化)</span>
+                <span class="skill-tag">用户研究：行为观察、实验设计、用户决策逻辑分析</span>
+                <span class="skill-tag">视觉传达：拼贴风格、信息层级优化、科普内容排版</span>
+            </div>
+        </div>
+
+        <!-- 工作经历 -->
+        <div class="section-tag">工作经历</div>
+        <div class="card">
+            <div class="experience-item">
+                <h3 class="experience-title">七巧板心理咨询有限公司 | 咨询助理（实习）</h3>
+                <p class="experience-time">2025.01 - 至今</p>
+                <ul class="experience-desc">
+                    <li>服务链路调研：识别线下咨询登记流程痛点，针对纸质记录在信息扩展性、来访者画像区分及数据准确性方面的局限性提出优化建议。</li>
+                    <li>业务逻辑梳理：针对3种复杂缴费模式进行逻辑拆解，提出结构化登记建议，旨在提升财务核算效率与信息检索速度。</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3 class="experience-title">京师奥园南奥实验学校 | 儿童心理干预人员（实习）</h3>
+                <p class="experience-time">2024.04 - 2024.12</p>
+                <ul class="experience-desc">
+                    <li>个案行为观察与方案迭代：负责2名学习障碍儿童干预，通过观察其对干预程序的反应差异（如专注度、社交回避），动态调整干预媒介实现个性化方案定制。</li>
+                    <li>代币制激励系统设计：针对低年级学生设计基于“代币制”的即时反馈系统，通过视觉化进度反馈显著提升了学生在实验任务中的配合度。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 项目经历 -->
+        <div class="section-tag">项目经历</div>
+        <div class="card">
+            <div class="experience-item">
+                <h3 class="experience-title">大学生创新能力提升项目（国家级） | 核心成员（文献检索与数据处理）</h3>
+                <p class="experience-time">2023.06 - 2025.09</p>
+                <ul class="experience-desc">
+                    <li>用户决策逻辑研究：参与《群体认同对个体赌博意愿的影响——来自SMT范式的行为和生理证据》研究，负责实验实施的主试工作，通过行为与生理证据分析用户在风险场景下的决策偏好。</li>
+                    <li>数据驱动洞察：运用Graphpad Prism进行数据可视化，发现社会认同对不同性别用户决策强度的差异化影响，为产品社交激励机制设计提供科学依据。</li>
+                    <li>学术产出：作为第二作者在Q2期刊发表论文《When Others Are Present: How Gender and Group Identification Shape Risk-Taking in Novice Gamblers?》，论证了群体认同感对提升用户参与深度的重要性。</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3 class="experience-title">伴我童行小组（校园组织） | 副组长（活动培训与科普宣传）</h3>
+                <p class="experience-time">2023.06 - 2025.06</p>
+                <ul class="experience-desc">
+                    <li>视觉传达设计：运用Canva、Sketchbook为项目设计组徽、组旗及推文视觉元素，确保视觉风格符合儿童及家长的审美偏好，科普儿童心理相关知识。</li>
+                    <li>内容排版优化：负责科普推文的视觉排版与内容审核，通过优化信息层级提升阅读体验，确保专业心理学知识的易读性与传播力。</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3 class="experience-title">小动物保护协会宣传部 | 干事</h3>
+                <p class="experience-time">2022.06 - 2024.06</p>
+                <ul class="experience-desc">
+                    <li>公众号视觉排版：运用秀米编辑器等工具制作科普推文共4篇，累计阅读量1100+，通过视觉引导优化提升内容传播力，科普动物保护相关知识。</li>
+                    <li>活动策划与执行：参与策划并实施爱心义卖活动，成功为流浪猫TNR筹集1000+元。于2024年9月获“社团活动先进个人”称号。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 荣誉与证书 -->
+        <div class="section-tag">荣誉与证书</div>
+        <div class="card">
+            <div class="awards">
+                <div class="award-item">广州医科大学本科生三等奖学金（3次）</div>
+                <div class="award-item">全国大学生心理与行为在线实验精英赛三等奖</div>
+                <div class="award-item">广东省心理健康科普大赛科普图画创意奖</div>
+                <div class="award-item">大学英语四级（CET-4）</div>
+            </div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="section-tag">联系方式</div>
+        <div class="card">
+            <div class="contact">
+                <div class="contact-item">邮箱：yilin200407@163.com</div>
+                <div class="contact-item">电话：18127978531</div>
+                <div class="contact-item">地址：广州</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
