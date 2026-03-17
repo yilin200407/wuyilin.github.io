@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国家级大学生创新能力提升项目 - 吴依琳</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+SC:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#F1EFE7',
+                        'paper-dark': '#E3DED1',
+                        ink: '#1A1A1A',
+                        'vintage-red': '#C45A50',
+                        'vintage-blue': '#5C7A8D',
+                        'vintage-green': '#657A5D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                        display: ['"Bebas Neue"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'paper': '4px 6px 14px -2px rgba(0, 0, 0, 0.2), inset 0 0 4px rgba(255,255,255,0.5)',
+                        'polaroid': '5px 8px 20px -5px rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for collage effects -->
+    <style>
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .torn-top {
+            clip-path: polygon(0% 10%, 5% 0%, 15% 12%, 25% 2%, 35% 8%, 45% 0%, 55% 10%, 65% 3%, 75% 12%, 85% 0%, 95% 8%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .tape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: #F1EFE7;
+            background-image: radial-gradient(#d5d1c4 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="text-ink font-serif antialiased overflow-x-hidden">
+
+    <!-- Global Noise Overlay -->
+    <div class="bg-noise"></div>
+
+    <!-- MAIN Wrapper -->
+    <div class="max-w-[1440px] mx-auto bg-paper min-h-screen relative shadow-[0_0_50px_rgba(0,0,0,0.1)] border-x-2 border-paper-dark">
+
+        <!-- Header -->
+        <header class="sticky top-4 z-50 px-8 flex justify-between items-center pointer-events-none">
+            <a href="resume_collage.html" class="pointer-events-auto bg-white/80 p-3 shadow-paper rotate-[-2deg] flex items-center gap-2 border border-gray-200 backdrop-blur-md transition-transform hover:rotate-0">
+                <span class="font-mono font-bold tracking-tighter uppercase relative">
+                    返回简历
+                </span>
+            </a>
+            
+            <nav class="pointer-events-auto flex gap-4">
+                <a href="#overview" class="bg-paper-dark border border-ink/20 px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:rotate-2 transition-all">项目概览</a>
+                <a href="#research" class="bg-vintage-blue text-white px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:-rotate-2 transition-all">研究内容</a>
+                <a href="#data" class="bg-vintage-green text-white px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:rotate-2 transition-all">数据分析</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="pt-24 pb-16 px-12 relative">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-8">
+                    <h1 class="text-6xl lg:text-8xl font-display text-ink uppercase leading-[0.85] tracking-tight mb-8">
+                        国家级<br>
+                        <span class="text-vintage-blue relative inline-block">
+                            创新能力
+                            <div class="absolute -inset-2 border-4 border-vintage-blue opacity-30 rotate-2 rounded-sm pointer-events-none"></div>
+                        </span>
+                    </h1>
+                    <p class="text-2xl text-gray-700 leading-relaxed max-w-3xl">
+                        用户决策逻辑研究：群体认同对个体赌博意愿的影响
+                    </p>
+                </div>
+                
+                <div class="lg:col-span-4 relative">
+                    <div class="bg-white p-6 shadow-polaroid rotate-3 relative z-20">
+                        <div class="tape w-16 h-5 -top-2 -left-4 -rotate-45"></div>
+                        <div class="w-full aspect-square bg-gradient-to-br from-vintage-blue/20 to-vintage-green/20 flex items-center justify-center">
+                            <span class="text-3xl font-display text-ink/60 text-center">数据分析<br>可视化</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Overview -->
+        <section id="overview" class="py-16 px-12 bg-[#F9F6F0]">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-display mb-8">项目概览</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 shadow-paper transform rotate-1">
+                        <h3 class="text-xl font-bold text-vintage-red mb-4">项目时间</h3>
+                        <p class="text-3xl font-mono font-bold">2023.06 - 2025.09</p>
+                        <p class="text-sm text-gray-500 mt-2">持续2年3个月</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 shadow-paper transform -rotate-1">
+                        <h3 class="text-xl font-bold text-vintage-blue mb-4">项目角色</h3>
+                        <p class="text-2xl font-mono font-bold">核心成员</p>
+                        <p class="text-sm text-gray-500 mt-2">用户决策研究</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 shadow-paper transform rotate-2">
+                        <h3 class="text-xl font-bold text-vintage-green mb-4">学术产出</h3>
+                        <p class="text-2xl font-mono font-bold">Q2期刊</p>
+                        <p class="text-sm text-gray-500 mt-2">第二作者发表</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research Content -->
+        <section id="research" class="py-16 px-12">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-display mb-12">研究内容</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white p-8 shadow-paper transform -rotate-1 relative">
+                        <div class="tape w-24 h-6 -top-3 left-8 rotate-[-5deg]"></div>
+                        <h3 class="text-2xl font-bold text-vintage-red mb-4">研究课题</h3>
+                        <p class="text-lg leading-relaxed">
+                            《群体认同对个体赌博意愿的影响》研究，通过行为与生理证据分析用户在风险场景下的决策偏好。
+                        </p>
+                        <ul class="mt-6 space-y-3 text-gray-700">
+                            <li>• 实验实施与数据收集</li>
+                            <li>• 行为决策模式分析</li>
+                            <li>• 生理指标监测</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-8 shadow-paper transform rotate-1 relative">
+                        <div class="tape w-24 h-6 -top-3 right-8 rotate-2"></div>
+                        <h3 class="text-2xl font-bold text-vintage-blue mb-4">学术贡献</h3>
+                        <p class="text-lg leading-relaxed">
+                            论证了群体认同感对提升用户参与深度的重要性，为产品社交激励机制设计提供科学依据。
+                        </p>
+                        <ul class="mt-6 space-y-3 text-gray-700">
+                            <li>• 第二作者发表论文</li>
+                            <li>• 科学依据支撑设计</li>
+                            <li>• 用户参与深度研究</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Analysis -->
+        <section id="data" class="py-16 px-12 bg-[#F9F6F0]">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-display mb-12">数据分析与可视化</h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div class="bg-white p-6 shadow-paper">
+                            <h3 class="text-xl font-bold text-vintage-green mb-4">工具使用</h3>
+                            <p class="text-lg">运用 Graphpad Prism 进行专业数据可视化</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Graphpad Prism</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">数据可视化</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">统计分析</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 shadow-paper transform rotate-2">
+                            <h3 class="text-xl font-bold text-vintage-red mb-4">研究发现</h3>
+                            <p class="text-lg">
+                                发现社会认同对不同性别用户决策强度的差异化影响，为个性化产品设计提供数据支持。
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 shadow-polaroid">
+                        <div class="w-full aspect-video bg-gradient-to-br from-vintage-blue/10 to-vintage-green/10 flex items-center justify-center">
+                            <span class="text-2xl font-display text-ink/60">数据可视化<br>图表展示</span>
+                        </div>
+                        <p class="text-center mt-4 text-sm text-gray-500">数据分析结果可视化展示区域</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 py-12 text-center border-t-4 border-ink bg-ink text-paper relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-4 torn-top bg-paper"></div>
+            <div class="relative z-10">
+                <p class="font-mono text-sm opacity-60">© 2024 吴依琳 - 国家级大学生创新能力提升项目详情</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
