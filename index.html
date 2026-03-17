@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>吴依琳 - 心理学背景的UI/UX设计师</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Serif+SC:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#F1EFE7',
+                        'paper-dark': '#E3DED1',
+                        ink: '#1A1A1A',
+                        'vintage-red': '#C45A50',
+                        'vintage-blue': '#5C7A8D',
+                        'vintage-green': '#657A5D',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Noto Serif SC"', 'serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                        display: ['"Bebas Neue"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'paper': '4px 6px 14px -2px rgba(0, 0, 0, 0.2), inset 0 0 4px rgba(255,255,255,0.5)',
+                        'polaroid': '5px 8px 20px -5px rgba(0, 0, 0, 0.5)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for collage effects -->
+    <style>
+        .bg-noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .torn-top {
+            clip-path: polygon(0% 10%, 5% 0%, 15% 12%, 25% 2%, 35% 8%, 45% 0%, 55% 10%, 65% 3%, 75% 12%, 85% 0%, 95% 8%, 100% 0%, 100% 100%, 0% 100%);
+        }
+        
+        .torn-bottom {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 90%, 95% 100%, 85% 92%, 75% 98%, 65% 88%, 55% 100%, 45% 90%, 35% 98%, 25% 92%, 15% 100%, 5% 90%, 0% 100%);
+        }
+        
+        .torn-both {
+            clip-path: polygon(0% 5%, 10% 0%, 20% 8%, 30% 2%, 40% 6%, 50% 0%, 60% 8%, 70% 3%, 80% 9%, 90% 1%, 100% 6%, 100% 95%, 90% 100%, 80% 92%, 70% 97%, 60% 90%, 50% 98%, 40% 92%, 30% 100%, 20% 91%, 10% 98%, 0% 94%);
+        }
+
+        .highlighter {
+            background: linear-gradient(104deg, rgba(130, 255, 173, 0) 0.9%, rgba(130, 255, 173, 1.25) 2.4%, rgba(130, 255, 173, 0.5) 5.8%, rgba(130, 255, 173, 0.1) 93%, rgba(130, 255, 173, 0.7) 96%, rgba(130, 255, 134, 0) 98%), linear-gradient(183deg, rgba(130, 255, 173, 0) 0%, rgba(130, 255, 173, 0.3) 7.9%, rgba(130, 255, 173, 0) 15%);
+        }
+
+        .cutout-text {
+            background-color: #1A1A1A;
+            color: #F1EFE7;
+            padding: 2px 8px;
+            display: inline-block;
+            transform: rotate(-2deg);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+
+        .tape {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        body {
+            background-color: #F1EFE7;
+            background-image: radial-gradient(#d5d1c4 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E3DED1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1A1A1A;
+        }
+    </style>
+</head>
+<body class="text-ink font-serif antialiased overflow-x-hidden">
+
+    <!-- Global Noise Overlay -->
+    <div class="bg-noise"></div>
+
+    <!-- MAIN Wrapper -->
+    <div class="max-w-[1440px] mx-auto bg-paper min-h-screen relative shadow-[0_0_50px_rgba(0,0,0,0.1)] border-x-2 border-paper-dark">
+
+        <!-- Header / Navigation -->
+        <header class="sticky top-4 z-50 px-8 flex justify-between items-center pointer-events-none">
+            <div class="pointer-events-auto bg-white/80 p-3 shadow-paper rotate-[-2deg] flex items-center gap-2 border border-gray-200 backdrop-blur-md transition-transform hover:rotate-0">
+                <span class="font-mono font-bold tracking-tighter uppercase relative">
+                    吴依琳 YiLin
+                    <div class="absolute w-full h-[2px] bg-vintage-red bottom-1 -z-10 rotate-1"></div>
+                </span>
+            </div>
+            
+            <nav class="pointer-events-auto flex gap-4">
+                <a href="#about" class="bg-paper-dark border border-ink/20 px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:rotate-2 transition-all torn-both">个人介绍</a>
+                <a href="#experience" class="bg-vintage-blue text-white px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:-rotate-2 transition-all torn-both">工作经历</a>
+                <a href="#projects" class="bg-vintage-green text-white px-4 py-2 text-sm font-bold font-mono shadow-paper hover:-translate-y-1 hover:rotate-2 transition-all torn-both">项目经历</a>
+            </nav>
+        </header>
+
+        <!-- 1. Hero / Intro Section -->
+        <section id="about" class="pt-24 pb-32 px-12 relative">
+            <!-- Background Decorative Elements -->
+            <div class="absolute top-20 right-20 w-80 h-80 bg-vintage-red/20 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute bottom-10 left-10 w-64 h-64 bg-vintage-blue/20 rounded-full blur-3xl -z-10"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Text Area -->
+                <div class="md:col-span-7 space-y-8">
+                    <h1 class="text-7xl lg:text-9xl font-display text-ink uppercase leading-[0.85] tracking-tight relative z-20">
+                        心理学<br>
+                        <span class="text-vintage-red relative inline-block">
+                            UI / UX 设计
+                            <div class="absolute -inset-2 border-4 border-vintage-red opacity-30 rotate-2 rounded-sm pointer-events-none"></div>
+                        </span>
+                        <div class="text-2xl lg:text-3xl font-mono text-ink/70 mt-4 normal-case tracking-normal">
+                            Psychology<br>
+                            <span class="text-vintage-red/80">UI/UX Design</span>
+                        </div>
+                    </h1>
+                    
+                    <div class="bg-white p-8 shadow-paper max-w-lg rotate-1 border border-gray-200 relative mt-8 font-serif">
+                        <div class="tape w-24 h-6 -top-3 left-1/2 -translate-x-1/2 rotate-[-3deg]"></div>
+                        <h2 class="text-2xl font-bold mb-4 font-mono">致力运用心理学理论赋能的 UI/UX 设计</h2>
+                        <p class="text-gray-700 leading-relaxed text-lg">
+                            具备深度的用户洞察与逻辑拆解能力，擅长将复杂业务逻辑转化为直观的视觉方案。
+                            熟练运用数据分析工具支撑设计决策，对产品设计有浓厚兴趣，致力于通过精细化交互设计提高用户产品体验。
+                        </p>
+                        
+                        <!-- Skills -->
+                        <div class="mt-6 flex flex-wrap gap-2 font-mono">
+                            <span class="bg-ink text-white px-3 py-1 text-sm rounded-sm shadow-sm transform -rotate-2">用户洞察</span>
+                            <span class="bg-vintage-blue text-white px-3 py-1 text-sm rounded-sm shadow-sm transform rotate-2">逻辑拆解</span>
+                            <span class="bg-ink text-white px-3 py-1 text-sm rounded-sm shadow-sm transform -rotate-2">数据分析</span>
+                            <span class="bg-vintage-blue text-white px-3 py-1 text-sm rounded-sm shadow-sm transform rotate-2">交互设计</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Area -->
+                <div class="md:col-span-5 relative">
+                    <!-- Polaroid Style Profile -->
+                    <div class="bg-white p-6 pb-16 shadow-polaroid rotate-3 relative z-20 transition-transform duration-500 hover:rotate-0 hover:scale-105">
+                        <div class="tape w-16 h-5 -top-2 -left-4 -rotate-45"></div>
+                        <div class="tape w-16 h-5 -top-2 -right-4 rotate-45"></div>
+                        <div class="w-full aspect-[4/5] bg-gradient-to-br from-vintage-blue/20 to-vintage-red/20 flex items-center justify-center">
+						<img src="https://raw.githubusercontent.com/yilin200407/wuyilin.github.io/refs/heads/main/bb48a78c07834bf28d464940ded59940.png%7Etplv-a9rns2rl98-image.png" alt="Portrait" class="w-full aspect-[4/5] object-cover">
+                        </div>
+                        <div class="absolute bottom-5 left-6 font-mono text-xl text-ink/80">PROFILE.jpg</div>
+                    </div>
+					
+					<!-- Scattered Elements (Cats/Butterflies referencing the image) -->
+					<div id="floating-elem-1" class="absolute -bottom-10 -left-20 w-32 h-32 z-30">
+					    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover rounded-full border-4 border-white shadow-lg rotate-12" alt="Cat snippet">
+					</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Education & Experience Section -->
+        <section id="experience-section" class="py-12 px-12 relative bg-[#F9F6F0] border-t-2 border-b-2 border-ink border-dashed min-h-[780px]">
+            <div class="bg-white p-4 shadow-paper border border-gray-300 transform -rotate-1 relative max-w-md mx-auto mb-12">
+                <div class="tape w-16 h-4 -top-2 left-1/2 -translate-x-1/2 rotate-[-3deg]"></div>
+                <h2 class="text-4xl font-display text-center tracking-widest relative">
+                    教育背景 Education<br>
+                    <span class="text-xl font-mono text-gray-600 mt-1">&</span><br>
+                <h2 class="text-4xl font-display text-center tracking-widest relative">
+                    工作经历 Experience<br>
+                </h2>
+            </div>
+            
+            <!-- Education Card (Dark Theme) -->
+            <div class="max-w-4xl mx-auto mb-10">
+                <div class="bg-ink text-paper p-6 shadow-paper border border-ink/60 transform -rotate-1 relative">
+                    <div class="tape w-28 h-5 -top-2 left-6 rotate-[-5deg] bg-white/20"></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-bold font-serif leading-tight mb-2">广州医科大学</h3>
+                            <p class="text-base text-paper/90">应用心理学</p>
+                            <p class="font-mono text-xs text-paper/70 mb-1">2022.09 - 2026.06</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <h4 class="text-xl font-bold font-serif leading-tight mb-2">核心课程</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <span class="bg-vintage-green/20 text-paper px-3 py-2 text-sm font-bold font-mono">实验心理学</span>
+                                <span class="bg-vintage-green/20 text-paper px-3 py-2 text-sm font-bold font-mono">认知心理学</span>
+                                <span class="bg-vintage-green/20 text-paper px-3 py-2 text-sm font-bold font-mono">心理统计学</span>
+                                <span class="bg-vintage-green/20 text-paper px-3 py-2 text-sm font-bold font-mono">心理测量学</span>
+                                <span class="bg-vintage-green/20 text-paper px-3 py-2 text-sm font-bold font-mono">社会心理学</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Experience Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto relative">
+                <!-- Experience Item 1 -->
+                <div class="bg-white p-6 shadow-paper border border-gray-300 transform -rotate-1 hover:rotate-0 transition-transform duration-300 relative h-full">
+                    <div class="tape w-16 h-4 -top-2 right-3 rotate-2"></div>
+                    <div class="font-mono text-xs text-vintage-red mb-1">2026.01 - 至今</div>
+                    <h3 class="text-xl font-bold font-serif leading-tight mb-1">咨询师助理 (实习)</h3>
+                    <h4 class="text-gray-500 italic mb-3">七巧板心理咨询有限公司</h4>
+                    <ul class="text-gray-700 text-sm leading-relaxed space-y-1">
+                        <li>• 服务链路调研：识别线下咨询登记流程痛点，针对纸质记录在信息扩展性、来访者画像区分及数据准确性方面的局限性提出优化建议</li>
+                        <li>• 业务逻辑梳理：针对 3 种复杂缴费模式进行逻辑拆解，提出结构化登记建议，旨在提升财务核算效率与信息检索速度</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="bg-paper p-6 shadow-paper border border-ink/40 transform rotate-2 hover:rotate-0 transition-transform duration-300 relative h-full">
+                    <div class="tape w-16 h-4 -top-2 left-3 rotate-2"></div>
+                    <div class="font-mono text-xs text-vintage-blue mb-1">2024.04 - 2024.12</div>
+                    <h3 class="text-xl font-bold font-serif leading-tight mb-1">儿童心理干预人员 (实习)</h3>
+                    <h4 class="text-gray-500 italic mb-3">京师奥园南奥实验学校</h4>
+                    <ul class="text-gray-700 text-sm leading-relaxed space-y-1">
+                        <li>• 个案行为观察与方案迭代：负责 2 名学习障碍儿童干预，通过观察其对干预程序的反应差异，动态调整干预媒介实现个性化方案定制</li>
+                        <li>• 代币制激励系统设计：针对低年级学生设计基于"代币制"的即时反馈系统，通过视觉化进度反馈显著提升了学生在实验任务中的配合度</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Projects Section -->
+        <section id="projects" class="py-24 px-12 bg-[#F9F6F0]">
+            <div class="flex items-center justify-between mb-16">
+                <div class="bg-white p-6 shadow-paper border border-gray-300 transform -rotate-2 relative">
+                    <div class="tape w-20 h-5 -top-2 left-4 rotate-[-5deg]"></div>
+                    <h2 class="text-5xl font-display tracking-widest relative">
+                        项目经历<br>
+                        <span class="text-lg font-mono text-gray-600 mt-2">Projects</span>
+                        <div class="absolute bottom-2 left-0 w-full h-[8px] highlighter -z-10"></div>
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Project Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- Project 1 -->
+                <div class="group relative text-left bg-white p-6 shadow-polaroid transform rotate-2 hover:rotate-[-1deg] hover:-translate-y-2 hover:z-20 transition-all duration-300 w-full">
+                    <div class="tape w-20 h-5 -top-2 left-1/2 -translate-x-1/2 rotate-1 z-10"></div>
+                    <div class="overflow-hidden bg-gray-100 aspect-video relative mb-4">
+                        <div class="w-full h-full bg-gradient-to-br from-vintage-green/20 to-vintage-blue/20 flex items-center justify-center">
+                            <img src="https://raw.githubusercontent.com/yilin200407/wuyilin.github.io/refs/heads/main/77aedb07-05e7-4d4e-8a16-0dfc5237969b.png" alt="Portrait" class="w-full aspect-[4/5] object-cover">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-ink font-serif">大学生创新能力提升项目</h3>
+                        <button class="bg-ink text-paper px-4 py-2 text-sm font-bold font-mono shadow-md hover:bg-ink/90 hover:scale-105 transition-all duration-200 cursor-pointer" onclick="window.location.href='project_national.html'">了解详情</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 font-mono">数据分析及可视化 | 2023.06 - 2025.09</p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 用户决策逻辑研究：参与《群体认同对个体赌博意愿的影响》研究</li>
+                        <li>• 学术产出：作为第二作者在 Q2 期刊发表论文</li>
+                        <li>• 数据驱动洞察：运用 Graphpad Prism 进行数据可视化</li>
+                    </ul>
+                    <div class="absolute inset-0 bg-vintage-green/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none"></div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative text-left bg-white p-6 shadow-polaroid transform -rotate-3 hover:rotate-[1deg] hover:-translate-y-2 hover:z-20 transition-all duration-300 w-full mt-8 md:mt-0">
+                    <div class="tape w-16 h-5 -top-2 -left-3 -rotate-45 z-10"></div>
+                    <div class="overflow-hidden bg-gray-100 aspect-video relative mb-4">
+                        <div class="w-full h-full bg-gradient-to-br from-vintage-red/20 to-vintage-green/20 flex items-center justify-center">
+                            <img src="https://raw.githubusercontent.com/yilin200407/wuyilin.github.io/refs/heads/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-03-16_013734_045.jpg" alt="Portrait" class="w-full object-cover">
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-ink font-serif">伴我童行小组</h3>
+                        <button class="bg-ink text-paper px-4 py-2 text-sm font-bold font-mono shadow-md hover:bg-ink/90 hover:scale-105 transition-all duration-200 cursor-pointer" onclick="window.location.href='project_children.html'">了解详情</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 font-mono">logo设计和推文制作 | 2023.06 - 2025.06</p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 视觉策略制定：针对儿童及家长受众制定符合受众心理的视觉风格</li>
+                        <li>• 信息架构优化：负责科普推文的排版逻辑，提升阅读体验</li>
+                    </ul>
+                    <div class="absolute inset-0 bg-vintage-red/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none"></div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative text-left bg-white p-6 shadow-polaroid transform rotate-1 hover:rotate-[-2deg] hover:-translate-y-2 hover:z-20 transition-all duration-300 w-full mt-8 lg:mt-0 lg:translate-y-12">
+                    <div class="tape w-20 h-5 -bottom-2 right-4 rotate-[-5deg] z-10"></div>
+                    <div class="overflow-hidden bg-gray-100 aspect-video relative mb-4">
+                        <div class="w-full h-full bg-gradient-to-br from-vintage-blue/20 to-vintage-red/20 flex items-center justify-center">
+                            <span class="text-2xl font-display text-ink/60">活动策划</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-xl font-bold text-ink font-serif">小动物保护协会宣传部</h3>
+                        <button class="bg-ink text-paper px-4 py-2 text-sm font-bold font-mono shadow-md hover:bg-ink/90 hover:scale-105 transition-all duration-200 cursor-pointer" onclick="window.location.href='project_animal.html'">了解详情</button>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 font-mono">推文制作和活动策划 | 2022.06 - 2024.06</p>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 信息可读性优化：运用秀米编辑器对科普内容进行视觉降噪</li>
+                        <li>• 活动策划与执行：参与策划并实施爱心义卖活动</li>
+                    </ul>
+                    <div class="absolute inset-0 bg-vintage-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Skills & Certificates Section -->
+        <section class="py-24 px-12 relative">
+            <div class="bg-white p-6 shadow-paper border border-gray-300 transform rotate-2 relative max-w-md mx-auto mb-16">
+                <div class="tape w-20 h-5 -top-2 left-8 rotate-[-2deg]"></div>
+                <h2 class="text-5xl font-display text-center tracking-widest">
+                    技能证书<br>
+                    <span class="text-lg font-mono text-gray-600 mt-2">Skills & Certificates</span>
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                
+                <!-- Skills -->
+                <div class="bg-white p-8 shadow-paper border border-gray-300 transform rotate-[-1deg] relative">
+                    <div class="tape w-24 h-6 -top-3 right-8 rotate-2"></div>
+                    <h3 class="text-2xl font-bold font-serif mb-6 text-vintage-red">技能工具</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-mono text-sm text-gray-500 mb-2">设计工具</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Figma (基础)</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Photoshop (基础)</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Canva</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Sketchbook</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-mono text-sm text-gray-500 mb-2">技术与 AI 工具</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">VS Code</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Pixso</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">秀米编辑器</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-mono text-sm text-gray-500 mb-2">数据分析</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Graphpad Prism</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">Excel(熟练数据可视化)</span>
+                                <span class="bg-paper-dark px-3 py-1 text-sm font-mono">SPSS(数据分析)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificates -->
+                <div class="bg-ink p-8 text-paper shadow-paper transform rotate-1 relative">
+                    <div class="tape w-24 h-6 -top-3 left-8 rotate-[-3deg] bg-white/20"></div>
+                    <h3 class="text-2xl font-bold font-serif mb-6 text-vintage-green">证书与荣誉</h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-vintage-green pl-4">
+                            <h4 class="font-mono text-sm text-gray-300 mb-1">校园荣誉</h4>
+                            <p class="text-lg">广州医科大学本科生三等奖学金（3次）</p>
+                        </div>
+                        <div class="border-l-4 border-vintage-blue pl-4">
+                            <h4 class="font-mono text-sm text-gray-300 mb-1">竞赛奖项</h4>
+                            <p class="text-lg">全国大学生心理与行为在线实验精英赛校赛三等奖</p>
+                        </div>
+                        <div class="border-l-4 border-vintage-red pl-4">
+                            <h4 class="font-mono text-sm text-gray-300 mb-1">创意奖项</h4>
+                            <p class="text-lg">广东省心理健康科普大赛科普图画组创意奖</p>
+                        </div>
+                        <div class="border-l-4 border-vintage-green pl-4">
+                            <h4 class="font-mono text-sm text-gray-300 mb-1">语言能力</h4>
+                            <p class="text-lg">大学英语四级（CET - 4）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-20 py-12 text-center border-t-4 border-ink bg-ink text-paper relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-4 torn-top bg-paper"></div>
+            <div class="relative z-10">
+                <h2 class="text-4xl font-display mb-6 tracking-widest">联系方式</h2>
+                <div class="flex justify-center gap-6 mb-8">
+                    <div class="bg-paper text-ink p-4 rounded-lg hover:scale-110 transition-transform shadow-lg">
+                        <p class="font-mono text-sm">邮箱</p>
+                        <p class="font-serif">yilin200407@163.com</p>
+                    </div>
+                    <div class="bg-paper text-ink p-4 rounded-lg hover:scale-110 transition-transform shadow-lg">
+                        <p class="font-mono text-sm">电话</p>
+                        <p class="font-serif"> 181 2797 8531</p>
+                    </div>
+                </div>
+                <p class="font-mono text-sm opacity-60">© 2024 吴依琳 - 心理学&UI/UX设计</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add hover effects to all interactive elements
+        document.querySelectorAll('.group').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.zIndex = '30';
+            });
+            element.addEventListener('mouseleave', function() {
+                this.style.zIndex = '';
+            });
+        });
+
+        // Button hover effects for project cards
+        document.querySelectorAll('button[onclick*="project"]').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.parentElement.parentElement.style.zIndex = '30';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.parentElement.parentElement.style.zIndex = '';
+            });
+        });
+
+        // Smooth scroll to experience section with debounce
+        let scrollTimeout = null;
+        const experienceNav = document.querySelector('a[href="#experience"]');
+        
+        if (experienceNav) {
+            experienceNav.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Debounce: clear any pending scroll
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                
+                // Calculate exact scroll position
+                const experienceSection = document.getElementById('experience-section');
+                if (experienceSection) {
+                    const sectionRect = experienceSection.getBoundingClientRect();
+                    const absoluteTop = sectionRect.top + window.pageYOffset;
+                    const headerHeight = 80; // Account for sticky header
+                    const targetPosition = absoluteTop - headerHeight - 10; // Additional 10px offset for better visibility
+                    
+                    // Smooth scroll with precise positioning
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Set timeout to prevent multiple triggers
+                    scrollTimeout = setTimeout(() => {
+                        scrollTimeout = null;
+                    }, 500);
+                }
+            });
+        }
+
+        // Enhanced smooth scrolling for all navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                // Skip if it's the experience link (already handled above)
+                if (this.getAttribute('href') === '#experience') {
+                    return;
+                }
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const targetRect = target.getBoundingClientRect();
+                    const absoluteTop = targetRect.top + window.pageYOffset;
+                    const headerHeight = 80;
+                    
+                    window.scrollTo({
+                        top: absoluteTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
